@@ -36,19 +36,21 @@ export function activate(context: vscode.ExtensionContext) {
 
       const selection = editor.selection;
       const text = editor.document.getText(selection);
+      const iconIndex = Math.floor(Math.random() * iconList.length);
+      const colorIndex = Math.floor(Math.random() * colorList.length);
+      const style = `font-size:20px;background-color: ${colorList[colorIndex]};color:#fff;`;
+      const str = `${text}`.replace(/\'|\"/g, "");
 
       text
         ? vscode.commands
             .executeCommand("editor.action.insertLineAfter")
             .then(() => {
-              const iconIndex = Math.floor(Math.random() * iconList.length);
-              const colorIndex = Math.floor(Math.random() * colorList.length);
-              const style = `font-size:20px;background-color: ${colorList[colorIndex]};color:#fff;`;
-              const str = `${text}`.replace(/\'|\"/g, "");
               const logToInsert = `console.log('%c ${iconList[iconIndex]} ${str}: ', '${style}', ${text})`;
               insertText(logToInsert);
             })
-        : insertText("console.log();");
+        : insertText(
+            `console.log('%c ${iconList[iconIndex]} ${str}: ', '${style}', 'log')`
+          );
     }
   );
   context.subscriptions.push(insertLogStatement);
