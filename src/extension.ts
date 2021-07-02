@@ -53,7 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
           );
     }
   );
-  context.subscriptions.push(insertLogStatement);
+  context.subscriptions.push(insertLogStatement)
 }
 
 export function deactivate() {}
