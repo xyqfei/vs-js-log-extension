@@ -3,7 +3,7 @@
   "publisher": "lhf",
   "displayName": "js-log",
   "description": "js-log",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "icon": "icon.jpeg",
   "engines": {
     "vscode": "^1.56.0"
@@ -12,7 +12,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.insertJSLog"
+    "onCommand:extension.insertJSLog",
+    "onCommand:extension.insertBaidu"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -20,15 +21,26 @@
       {
         "command": "extension.insertJSLog",
         "title": "Insert Log"
+      },
+      {
+        "command": "extension.insertBaidu",
+        "title": "insertBaidu"
       }
     ],
     "keybindings": [
       {
         "command": "extension.insertJSLog",
-        "key": "ctrl+f10",
+        "key": "ctrl+f11",
         "mac": "cmd+shift+l",
         "win": "alt+shift+l",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.insertBaidu",
+        "key": "ctrl+f11",
+        "mac": "cmd+shift+b",
+        "win": "alt+shift+b",
+        "when": "editorIsOpen"
       }
     ]
   },
@@ -41,16 +53,19 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.56.0",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.4",
     "@types/node": "^12.11.7",
-    "eslint": "^7.19.0",
+    "@types/vscode": "^1.56.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.19.0",
     "glob": "^7.1.6",
     "mocha": "^8.2.1",
     "typescript": "^4.1.3",
     "vscode-test": "^1.5.0"
+  },
+  "dependencies": {
+    "open": "^8.2.1"
   }
 }
