@@ -13,11 +13,6 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "activationEvents": [
-      "onCommand:extension.insertJSLog",
-      "onCommand:extension.baidu",
-      "onCommand:extension.mdExample"
-    ],
     "commands": [
       {
         "command": "extension.insertJSLog",
@@ -31,6 +26,11 @@
         "command": "extension.mdExample",
         "title": "mdExample"
       }
+    ],
+    "activationEvents": [
+      "onCommand:extension.insertJSLog",
+      "onCommand:extension.baidu",
+      "onCommand:extension.mdExample"
     ],
     "keybindings": [
       {
