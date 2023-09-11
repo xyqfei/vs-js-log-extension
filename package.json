@@ -27,6 +27,11 @@
         "title": "mdExample"
       }
     ],
+    "activationEvents": [
+      "onCommand:extension.insertJSLog",
+      "onCommand:extension.baidu",
+      "onCommand:extension.mdExample"
+    ],
     "keybindings": [
       {
         "command": "extension.insertJSLog",
