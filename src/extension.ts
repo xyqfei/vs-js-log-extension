@@ -1,16 +1,19 @@
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 const open = require('open');
+// const mdExampleFile = require('./markdownExample.md');
+const path = require('path');
 
+// prettier-ignore
 const iconList = ['🦑', '🦐', '🦀', '🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍈', '🍒', '🍑', '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥒', '🌶', '🌽', '🥕', '🥔', '🥐', '🍠', '🍞', '🥖', '🥨', '🧀', '🥚', '🥞', '🥓', '🥩', '🍗', '🍖', '🌭', '🍔', '🍟', '🍕', '🥪', '🌮', '🌯', '🥘', '🥗', '🍝', '🥫', '🥘', '🍜', '🍲', '🍝', '🍛', '🍣', '🍱', '🥟', '🍤', '🍚', '🍥', '🥠', '🍢', '🍡', '🍧', '🍨', '🍦', '🥧', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🌰', '🥜', '🍯', '🥛', '🍼️', '🍵', '🥤', '🍶', '🍺', '🍻', '🍷', '🥃', '🍸', '🍹', '🍾', '🥡'];
+// prettier-ignore
 const colorList = ["#42b983", "#33A5FF", "#B03734", "#2EAFB0", "#6EC1C2", "#ED9EC7", "#FCA650", "#3F7CFF", "#93C0A4", "#EA7E5C", "#F5CE50", "#465975", "#FFDD4D", "#7F2B82", "#4b4b4b", "#E41A6A"];
-
 
 const insertText = (val: string) => {
   const editor = vscode.window.activeTextEditor;
 
   if (!editor) {
     vscode.window.showErrorMessage(
-      "Can't insert log because no document is open"
+      "Can't insert log because no document is open",
     );
     return;
   }
@@ -25,10 +28,10 @@ const insertText = (val: string) => {
 };
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "js-log" is now active!');
+  console.log('Congratulations, your extension "js-log" is now active!');
 
   const insertLogStatement = vscode.commands.registerCommand(
-    "extension.insertJSLog",
+    'extension.insertJSLog',
     () => {
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
@@ -40,36 +43,49 @@ export function activate(context: vscode.ExtensionContext) {
       const iconIndex = Math.floor(Math.random() * iconList.length);
       const colorIndex = Math.floor(Math.random() * colorList.length);
       const style = `font-size:20px;background-color: ${colorList[colorIndex]};color:#fff;`;
-      const str = `${text}`.replace(/\'|\"/g, "");
+      const str = `${text}`.replace(/\'|\"/g, '');
 
       text
         ? vscode.commands
-            .executeCommand("editor.action.insertLineAfter")
+            .executeCommand('editor.action.insertLineAfter')
             .then(() => {
               const logToInsert = `console.log('%c ${iconList[iconIndex]} ${str}: ', '${style}', ${text})`;
               insertText(logToInsert);
             })
         : insertText(
-            `console.log('%c ${iconList[iconIndex]} ${str}: ', '${style}', 'log')`
+            `console.log('%c ${iconList[iconIndex]} ${str}: ', '${style}', 'log')`,
           );
-    }
+    },
   );
-  const insertBaidu = vscode.commands.registerCommand(
-    "extension.insertBaidu",
-    () => {
-      const editor = vscode.window.activeTextEditor;
-      if (!editor) {
-        return;
-      }
+  const insertBaidu = vscode.commands.registerCommand('extension.baidu', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      return;
+    }
 
-      const selection = editor.selection;
-      const text = editor.document.getText(selection);
-     
-      open(`https://www.baidu.com/s?ie=UTF-8&wd=${text}`, 'chrome');
-    }
+    const selection = editor.selection;
+    const text = editor.document.getText(selection);
+
+    open(`https://www.baidu.com/s?ie=UTF-8&wd=${text}`, 'chrome');
+  });
+
+  const mdExample = vscode.commands.registerCommand(
+    'extension.mdExample',
+    () => {
+      // 引入 markdownExample.md 文件
+      const uri = vscode.Uri.file(
+        path.join(context.extensionPath, 'markdownExample.md'),
+      );
+
+      vscode.workspace.openTextDocument(uri).then((document) => {
+        vscode.window.showTextDocument(document);
+      });
+    },
   );
+
   context.subscriptions.push(insertLogStatement);
   context.subscriptions.push(insertBaidu);
+  context.subscriptions.push(mdExample);
 }
 
 export function deactivate() {}

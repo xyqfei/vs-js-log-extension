@@ -6,14 +6,10 @@
   "version": "0.3.0",
   "icon": "icon.jpeg",
   "engines": {
-    "vscode": "^1.56.0"
+    "vscode": "^1.75.0"
   },
   "categories": [
     "Other"
-  ],
-  "activationEvents": [
-    "onCommand:extension.insertJSLog",
-    "onCommand:extension.insertBaidu"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -23,8 +19,12 @@
         "title": "Insert Log"
       },
       {
-        "command": "extension.insertBaidu",
-        "title": "insertBaidu"
+        "command": "extension.baidu",
+        "title": "Baidu"
+      },
+      {
+        "command": "extension.mdExample",
+        "title": "mdExample"
       }
     ],
     "keybindings": [
@@ -36,11 +36,14 @@
         "when": "editorTextFocus"
       },
       {
-        "command": "extension.insertBaidu",
+        "command": "extension.baidu",
         "key": "ctrl+f11",
         "mac": "cmd+shift+b",
         "win": "alt+shift+b",
         "when": "editorIsOpen"
+      },
+      {
+        "command": "extension.mdExample"
       }
     ]
   },
