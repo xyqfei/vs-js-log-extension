@@ -1,2 +1,7 @@
-### vscode 便捷log工具
+## 功能
 
+| 功能                  |    命令     | 快捷键 |
+| --------------------- | :---------: | -----: |
+| 插入 js log           | insertJSLog |  ⇧ ⌘ L |
+| 快速百度              |    Baidu    |  ⇧ ⌘ B |
+| full markdown example |  mdExample  |        |
