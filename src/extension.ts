@@ -83,7 +83,47 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  const delLogStatement = vscode.commands.registerCommand(
+    'extension.delJSLog',
+    () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        return;
+      }
+      editor.edit((editBuilder) => {
+        const document = editor.document;
+        const lineCount = document.lineCount;
+        let startConsoleLogLine = 0;
+        let inConsoleLog = false;
+
+        for (let i = 0; i < lineCount; i++) {
+          const lineText = document.lineAt(i).text;
+
+          if (lineText.includes('console.log')) {
+            if (!inConsoleLog) {
+              inConsoleLog = true;
+              startConsoleLogLine = i;
+            }
+          }
+
+          if (
+            inConsoleLog &&
+            (lineText.includes(');') || lineText.includes('}'))
+          ) {
+            const range = new vscode.Range(
+              new vscode.Position(startConsoleLogLine, 0),
+              new vscode.Position(i + 1, 0),
+            );
+            editBuilder.delete(range);
+            inConsoleLog = false;
+          }
+        }
+      });
+    },
+  );
+
   context.subscriptions.push(insertLogStatement);
+  context.subscriptions.push(delLogStatement);
   context.subscriptions.push(insertBaidu);
   context.subscriptions.push(mdExample);
 }

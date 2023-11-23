@@ -24,6 +24,10 @@
         "title": "Insert Log"
       },
       {
+        "command": "extension.delJSLog",
+        "title": "Delete Log"
+      },
+      {
         "command": "extension.baidu",
         "title": "Baidu"
       },
@@ -33,6 +37,13 @@
       }
     ],
     "keybindings": [
+      {
+        "command": "extension.delJSLog",
+        "key": "ctrl+f10",
+        "mac": "cmd+shift+;",
+        "win": "alt+shift+;",
+        "when": "editorTextFocus"
+      },
       {
         "command": "extension.insertJSLog",
         "key": "ctrl+f11",
