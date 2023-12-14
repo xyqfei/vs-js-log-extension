@@ -32,7 +32,11 @@ export const gen = async (name: string, context: vscode.ExtensionContext) => {
   }
 
   const templatePath = path.join(context.extensionPath, nameFileMap[name]);
-  const template = fs.readFileSync(templatePath, 'utf-8');
-  const rendered = ejs.render(template, { params });
-  return rendered;
+  try {
+    const template = fs.readFileSync(templatePath, 'utf-8');
+    const rendered = ejs.render(template, { params });
+    return rendered;
+  } catch (error) {
+    console.log(error);
+  }
 };
