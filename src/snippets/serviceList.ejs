@@ -1,0 +1,54 @@
+<template>
+  <div class="wrap">服务列表</div>
+</template>
+
+<script>
+import { Loading } from 'vant';
+export default {
+  components: {
+    [Loading.name]: Loading
+  },
+  data() {
+    return {
+      dataList: [],
+      loading: false
+    };
+  },
+  created() {
+    this.getData();
+  },
+  methods: {
+    // 获取数据
+    async getData() {
+      try {
+        const { data } = await this.$http({
+          url: this.$urlMapper.services,
+          method: 'get',
+          params: {
+            <% for(let key in params) {
+              %><%= key %>: <%= params[key] %>,
+            <%}%>}
+        });
+        this.dataList = data;
+      } catch (error) {
+        this.loading = false;
+        console.error(error || '获取服务列表失败');
+      }
+    },
+    toDetail(item) {
+      const { url, hasContent, id } = item;
+      // 先判断hasContent是否是0，字符串0则代表无正文,并且url存在
+      this.$Tools._toUrl({ hasContent, url }, () => {
+        this.$router.push({
+          name: 'articleDetails',
+          query: {
+            id: id
+          }
+        });
+      });
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped></style>

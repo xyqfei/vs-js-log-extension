@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 const open = require('open');
 // const mdExampleFile = require('./markdownExample.md');
 const path = require('path');
+import { gen } from './gen/index';
 
 // prettier-ignore
 const iconList = ['🦑', '🦐', '🦀', '🍏', '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍈', '🍒', '🍑', '🍍', '🥥', '🥝', '🍅', '🍆', '🥑', '🥦', '🥒', '🌶', '🌽', '🥕', '🥔', '🥐', '🍠', '🍞', '🥖', '🥨', '🧀', '🥚', '🥞', '🥓', '🥩', '🍗', '🍖', '🌭', '🍔', '🍟', '🍕', '🥪', '🌮', '🌯', '🥘', '🥗', '🍝', '🥫', '🥘', '🍜', '🍲', '🍝', '🍛', '🍣', '🍱', '🥟', '🍤', '🍚', '🍥', '🥠', '🍢', '🍡', '🍧', '🍨', '🍦', '🥧', '🍰', '🎂', '🍮', '🍭', '🍬', '🍫', '🍿', '🍩', '🍪', '🌰', '🥜', '🍯', '🥛', '🍼️', '🍵', '🥤', '🍶', '🍺', '🍻', '🍷', '🥃', '🍸', '🍹', '🍾', '🥡'];
@@ -122,10 +123,51 @@ export function activate(context: vscode.ExtensionContext) {
     },
   );
 
+  const genSnippets = vscode.commands.registerCommand(
+    'extension.genSnippets',
+    (name: string) => {
+      const snippets = gen(name, context);
+      insertText(snippets);
+    },
+  );
+
+  const genArticleListDetailSnippets = vscode.commands.registerCommand(
+    'extension.genArticleListDetailSnippets',
+    () => {
+      vscode.commands.executeCommand(
+        'extension.genSnippets',
+        'articleListDetail',
+      );
+    },
+  );
+  const genArticleListSnippets = vscode.commands.registerCommand(
+    'extension.genArticleListSnippets',
+    () => {
+      vscode.commands.executeCommand('extension.genSnippets', 'articleList');
+    },
+  );
+  const genPolicyLibarySnippets = vscode.commands.registerCommand(
+    'extension.genPolicyLibarySnippets',
+    () => {
+      vscode.commands.executeCommand('extension.genSnippets', 'policyLibary');
+    },
+  );
+  const genServiceListSnippets = vscode.commands.registerCommand(
+    'extension.genServiceListSnippets',
+    () => {
+      vscode.commands.executeCommand('extension.genSnippets', 'serviceList');
+    },
+  );
+
   context.subscriptions.push(insertLogStatement);
   context.subscriptions.push(delLogStatement);
   context.subscriptions.push(insertBaidu);
   context.subscriptions.push(mdExample);
+  context.subscriptions.push(genSnippets);
+  context.subscriptions.push(genArticleListDetailSnippets);
+  context.subscriptions.push(genArticleListSnippets);
+  context.subscriptions.push(genPolicyLibarySnippets);
+  context.subscriptions.push(genServiceListSnippets);
 }
 
 export function deactivate() {}

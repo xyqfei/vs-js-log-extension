@@ -15,7 +15,12 @@
   "activationEvents": [
     "onCommand:extension.insertJSLog",
     "onCommand:extension.baidu",
-    "onCommand:extension.mdExample"
+    "onCommand:extension.mdExample",
+    "onCommand:extension.genSnippets",
+    "onCommand:extension.genArticleListDetailSnippets",
+    "onCommand:extension.genArticleListSnippets",
+    "onCommand:extension.genPolicyLibarySnippets",
+    "onCommand:extension.genServiceListSnippets"
   ],
   "contributes": {
     "commands": [
@@ -34,6 +39,22 @@
       {
         "command": "extension.mdExample",
         "title": "mdExample"
+      },
+      {
+        "command": "extension.genArticleListDetailSnippets",
+        "title": "articleListDetail"
+      },
+      {
+        "command": "extension.genArticleListSnippets",
+        "title": "articleList"
+      },
+      {
+        "command": "extension.genPolicyLibarySnippets",
+        "title": "policyLibary"
+      },
+      {
+        "command": "extension.genServiceListSnippets",
+        "title": "serviceList"
       }
     ],
     "keybindings": [
@@ -60,6 +81,9 @@
       },
       {
         "command": "extension.mdExample"
+      },
+      {
+        "command": "extension.genSnippets"
       }
     ]
   },
@@ -72,6 +96,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
+    "@types/ejs": "^3.1.5",
     "@types/glob": "^7.1.3",
     "@types/mocha": "^8.0.4",
     "@types/node": "^12.11.7",
@@ -85,6 +110,7 @@
     "vscode-test": "^1.5.0"
   },
   "dependencies": {
+    "ejs": "^3.1.9",
     "open": "^8.2.1"
   }
 }
