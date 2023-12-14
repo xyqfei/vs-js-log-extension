@@ -3,7 +3,7 @@
   "publisher": "lhf",
   "displayName": "js-log",
   "description": "js-log",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "icon": "icon.jpeg",
   "engines": {
     "vscode": "^1.80.0"
