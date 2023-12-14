@@ -6,7 +6,7 @@ async getArticleData() {
       url: this.$urlMapper.get_notifyArticles,
       params:{
         <% for(let key in params) {
-           %><%= key %>: <%= params[key] %>,
+           %><%= key %>: '<%= params[key] %>',
         <%}
         %>}
     });

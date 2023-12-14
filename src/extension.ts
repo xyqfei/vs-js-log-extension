@@ -125,8 +125,8 @@ export function activate(context: vscode.ExtensionContext) {
 
   const genSnippets = vscode.commands.registerCommand(
     'extension.genSnippets',
-    (name: string) => {
-      const snippets = gen(name, context);
+    async (name: string) => {
+      const snippets = await gen(name, context);
       insertText(snippets);
     },
   );

@@ -34,7 +34,7 @@ export default {
             limit: this.pagination.pageSize,
             offset: (this.pagination.current - 1) * this.pagination.pageSize,
             <% for(let key in params) {
-              %><%= key %>: <%= params[key] %>,
+              %><%= key %>: '<%= params[key] %>',
             <%}%>}
         });
         this.loading = false;
