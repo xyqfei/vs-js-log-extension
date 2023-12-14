@@ -4,10 +4,10 @@ import * as path from 'path';
 import * as ejs from 'ejs';
 
 const nameFileMap: { [key: string]: string } = {
-  articleListDetail: 'src/snippets/articleListDetail.ejs',
-  articleList: 'src/snippets/articleList.ejs',
-  policyLibary: 'src/snippets/policyLibary.ejs',
-  serviceList: 'src/snippets/serviceList.ejs',
+  articleListDetail: 'snippets/articleListDetail.ejs',
+  articleList: 'snippets/articleList.ejs',
+  policyLibary: 'snippets/policyLibary.ejs',
+  serviceList: 'snippets/serviceList.ejs',
 };
 
 // vscode extension 获取复制内容
