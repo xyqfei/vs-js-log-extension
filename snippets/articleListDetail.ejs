@@ -1,35 +1,78 @@
-async getArticleData() {
-  this.loading = true;
-  try {
-    const { data: res } = await this.$http({
-      method: 'GET',
-      url: this.$urlMapper.get_notifyArticles,
-      params:{
-        <% for(let key in params) {
-           %><%= key %>: '<%= params[key] %>',
-        <%}
-        %>}
-    });
-    if (res.count > 0) {
-      const { data: contentRes } = await this.$http({
-        method: 'GET',
-        url: this.$urlMapper.get_articledetail,
-        params: {
-          id: res.data[0].id
+<template>
+  <div>文章列表详情</div>
+</template>
+
+<script>
+import { Loading } from 'vant';
+export default {
+  components: {
+    [Loading.name]: Loading
+  },
+  data() {
+    return {
+      loading: false,
+      articleList: [],
+      articleInfo: '',
+    };
+  },
+  created() {
+    this.getActiveData();
+  },
+  methods: {
+    async getArticleData() {
+      this.loading = true;
+      try {
+        const { data: res } = await this.$http({
+          method: 'GET',
+          url: this.$urlMapper.get_notifyArticles,
+          params:{
+            <% for(let key in params) {
+              %><%= key %>: '<%= params[key] %>',
+            <%}
+            %>}
+        });
+        if (res.count > 0) {
+          this.articleList = res.data;
+          const { data: contentRes } = await this.$http({
+            method: 'GET',
+            url: this.$urlMapper.get_articledetail,
+            params: {
+              id: res.data[0].id
+            }
+          });
+          this.loading = false;
+          const { content = '' } = contentRes;
+          this.articleInfo = {
+            ...contentRes,
+            content: decode(content)
+          };
         }
+      } catch (error) {
+        this.loading = false;
+        this.$Toast({
+          message: '获取文章失败',
+          duration: 2000
+        });
+      }
+    },
+    showItemDetail(item) {
+      const { url, hasContent, id } = item;
+      // 先判断hasContent是否是0，字符串0则代表无正文,并且url存在
+      this.$Tools._toUrl({ hasContent, url }, () => {
+        this.$router.push({
+          name: 'articleDetails',
+          query: {
+            id: id
+          }
+        });
       });
-      this.loading = false;
-      const { content = '' } = contentRes;
-      this.articleInfo = {
-        ...contentRes,
-        content: decode(content)
-      };
     }
-  } catch (error) {
-    this.loading = false;
-    this.$Toast({
-      message: '获取文章失败',
-      duration: 2000
-    });
   }
-}
+};
+</script>
+
+<style lang="scss" scoped></style>
+
+
+
+

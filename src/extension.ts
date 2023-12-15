@@ -158,6 +158,12 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.commands.executeCommand('extension.genSnippets', 'serviceList');
     },
   );
+  const genDictionarySnippets = vscode.commands.registerCommand(
+    'extension.genDictionarySnippets',
+    () => {
+      vscode.commands.executeCommand('extension.genSnippets', 'dictionary');
+    },
+  );
 
   context.subscriptions.push(insertLogStatement);
   context.subscriptions.push(delLogStatement);
@@ -168,6 +174,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(genArticleListSnippets);
   context.subscriptions.push(genPolicyLibarySnippets);
   context.subscriptions.push(genServiceListSnippets);
+  context.subscriptions.push(genDictionarySnippets);
 }
 
 export function deactivate() {}

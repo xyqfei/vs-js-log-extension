@@ -20,7 +20,8 @@
     "onCommand:extension.genArticleListDetailSnippets",
     "onCommand:extension.genArticleListSnippets",
     "onCommand:extension.genPolicyLibarySnippets",
-    "onCommand:extension.genServiceListSnippets"
+    "onCommand:extension.genServiceListSnippets",
+    "onCommand:extension.genDictionarySnippets"
   ],
   "contributes": {
     "commands": [
@@ -55,6 +56,10 @@
       {
         "command": "extension.genServiceListSnippets",
         "title": "serviceList"
+      },
+      {
+        "command": "extension.genDictionarySnippets",
+        "title": "dictionary"
       }
     ],
     "keybindings": [

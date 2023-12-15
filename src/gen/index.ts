@@ -8,6 +8,7 @@ const nameFileMap: { [key: string]: string } = {
   articleList: 'snippets/articleList.ejs',
   policyLibary: 'snippets/policyLibary.ejs',
   serviceList: 'snippets/serviceList.ejs',
+  dictionary: 'snippets/dictionary.ejs',
 };
 
 // vscode extension 获取复制内容

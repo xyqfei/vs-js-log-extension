@@ -10,7 +10,8 @@ export default {
   },
   data() {
     return {
-      activeList: [],
+      loading: false,
+      articleList: [],
       pagination: {
         total: 0,
         pageSize: 5,
@@ -20,13 +21,14 @@ export default {
     };
   },
   created() {
-    this.getActiveData();
+    this.getArticleData();
   },
   methods: {
-    async getActiveData() {
+    async getArticleData() {
       try {
         this.loading = true;
         const { data } = await this.$http({
+          method: 'GET',
           url: this.$urlMapper.get_notifyArticles,
           params: {
             limit: this.pagination.pageSize,
@@ -37,7 +39,7 @@ export default {
           %>
         });
         this.loading = false;
-        this.activeList = data.data;
+        this.articleList = data.data;
         this.pagination.total = data.count;
         this.pagination.totalPage = Math.ceil(data.count / this.pagination.pageSize);
       } catch (error) {

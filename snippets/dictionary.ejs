@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">服务列表</div>
+  <div class="wrap">字典列表</div>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
   },
   data() {
     return {
-      dataList: [],
+      dictionaryList: [],
       loading: false
     };
   },
@@ -21,32 +21,22 @@ export default {
     // 获取数据
     async getData() {
       try {
+        this.loading = true;
         const { data } = await this.$http({
-          url: this.$urlMapper.services,
           method: 'GET',
+          url: this.$urlMapper.getDictionary,
           params: {
             <% for(let key in params) {
               %><%= key %>: '<%= params[key] %>',
             <%}%>}
         });
-        this.dataList = data;
+        this.loading = false;
+        this.dictionaryList = data;
       } catch (error) {
         this.loading = false;
         console.error(error || '获取服务列表失败');
       }
     },
-    toDetail(item) {
-      const { url, hasContent, id } = item;
-      // 先判断hasContent是否是0，字符串0则代表无正文,并且url存在
-      this.$Tools._toUrl({ hasContent, url }, () => {
-        this.$router.push({
-          name: 'articleDetails',
-          query: {
-            id: id
-          }
-        });
-      });
-    }
   }
 };
 </script>
