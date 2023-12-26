@@ -5,6 +5,7 @@ import * as ejs from 'ejs';
 
 const nameFileMap: { [key: string]: string } = {
   articleListDetail: 'snippets/articleListDetail.ejs',
+  articleListAllDetail: 'snippets/articleListAllDetail.ejs',
   articleList: 'snippets/articleList.ejs',
   policyLibary: 'snippets/policyLibary.ejs',
   serviceList: 'snippets/serviceList.ejs',

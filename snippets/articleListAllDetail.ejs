@@ -1,0 +1,89 @@
+<template>
+  <div>文章列表及所有文章详情</div>
+</template>
+
+<script>
+import { Loading } from 'vant';
+import { decode } from 'js-base64';
+export default {
+  components: {
+    [Loading.name]: Loading,
+  },
+  data() {
+    return {
+      dictionaryList: [],
+      articleDetailList: [],
+      loading: false,
+      articleList: [],
+    };
+  },
+  async created() {
+    this.getDictionary();
+    await this.getArticleList();
+    const promises = this.articleList.map((item) => {
+      return this.getArticleDetail(item.id);
+    });
+    const res = await Promise.allSettled(promises);
+    res.forEach((item) => {
+      this.articleDetailList.push(item?.value || {});
+    });
+  },
+  methods: {
+    async getDictionary() {
+      try {
+        this.loading = true;
+        const { data } = await this.$http({
+          method: 'GET',
+          url: this.$urlMapper.getDictionary,
+          params: {}
+        });
+        this.loading = false;
+        this.dictionaryList = data;
+      } catch (error) {
+        this.loading = false;
+        console.error(error || '获取服务列表失败');
+      }
+    },
+    async getArticleList() {
+      this.loading = true;
+      try {
+        const { data: res } = await this.$http({
+          method: 'GET',
+          url: this.$urlMapper.get_notifyArticles,
+          params:{
+            <% for(let key in params) {
+              %><%= key %>: '<%= params[key] %>',
+            <%}
+            %>}
+        });
+        if (res.count > 0) {
+          this.articleList = res.data;
+        } else {
+          this.articleList = [];
+        }
+      } catch (error) {
+        this.loading = false;
+      }
+    },
+    async getArticleDetail(id) {
+      const { data: contentRes } = await this.$http({
+        method: 'GET',
+        url: this.$urlMapper.get_articledetail,
+        params: {
+          id
+        }
+      });
+      this.loading = false;
+      const { content = '' } = contentRes;
+      return {
+        ...contentRes,
+        content: decode(content)
+      };
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+
+</style>

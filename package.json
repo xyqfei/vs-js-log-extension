@@ -46,6 +46,10 @@
         "title": "articleListDetail"
       },
       {
+        "command": "extension.genArticleListAllDetailSnippets",
+        "title": "articleListAllDetail"
+      },
+      {
         "command": "extension.genArticleListSnippets",
         "title": "articleList"
       },

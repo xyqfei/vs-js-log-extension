@@ -140,6 +140,15 @@ export function activate(context: vscode.ExtensionContext) {
       );
     },
   );
+  const genArticleListAllDetailSnippets = vscode.commands.registerCommand(
+    'extension.genArticleListAllDetailSnippets',
+    () => {
+      vscode.commands.executeCommand(
+        'extension.genSnippets',
+        'articleListAllDetail',
+      );
+    },
+  );
   const genArticleListSnippets = vscode.commands.registerCommand(
     'extension.genArticleListSnippets',
     () => {
@@ -171,6 +180,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(mdExample);
   context.subscriptions.push(genSnippets);
   context.subscriptions.push(genArticleListDetailSnippets);
+  context.subscriptions.push(genArticleListAllDetailSnippets);
   context.subscriptions.push(genArticleListSnippets);
   context.subscriptions.push(genPolicyLibarySnippets);
   context.subscriptions.push(genServiceListSnippets);
