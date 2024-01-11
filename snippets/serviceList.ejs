@@ -1,5 +1,10 @@
 <template>
-  <div class="wrap">服务列表</div>
+  <div class="wrap">
+    服务列表
+    <van-loading v-if="loading" color="#095ddc" text-color="#095ddc" vertical>
+      加载中...
+    </van-loading>
+  </div>
 </template>
 
 <script>
@@ -31,8 +36,9 @@ export default {
         });
         this.dataList = data;
       } catch (error) {
-        this.loading = false;
         console.error(error || '获取服务列表失败');
+      } finally {
+        this.loading = false;
       }
     },
     toDetail(item) {

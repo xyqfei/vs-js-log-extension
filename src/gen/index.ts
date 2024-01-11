@@ -23,13 +23,13 @@ const getClipBoradContent = () => {
 
 export const gen = async (name: string, context: vscode.ExtensionContext) => {
   const text = await getClipBoradContent();
-  const regex = /([a-zA-Z]+)=([a-zA-Z0-9]+)/g;
+  const regex = /([a-zA-Z]+)=([a-zA-Z0-9]+)?/g;
   let match;
   const params: { [key: string]: string | number } = {};
 
   while ((match = regex.exec(text)) !== null) {
     const key = match[1];
-    const value = String(match[2]);
+    const value = match[2] ? String(match[2]) : '';
     params[key] = value;
   }
 

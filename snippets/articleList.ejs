@@ -1,5 +1,10 @@
 <template>
-  <div>文章列表</div>
+  <div>
+    文章列表
+    <van-loading v-if="loading" color="#095ddc" text-color="#095ddc" vertical>
+      加载中...
+    </van-loading>
+  </div>
 </template>
 
 <script>
@@ -43,8 +48,9 @@ export default {
         this.pagination.total = data.count;
         this.pagination.totalPage = Math.ceil(data.count / this.pagination.pageSize);
       } catch (error) {
-        this.loading = false;
         console.error(error || '获取活动列表失败');
+      } finally {
+        this.loading = false;
       }
     },
     showItemDetail(item) {

@@ -1,5 +1,10 @@
 <template>
-  <div>文章列表详情</div>
+  <div>
+    文章列表详情
+    <van-loading v-if="loading" color="#095ddc" text-color="#095ddc" vertical>
+      加载中...
+    </van-loading>
+  </div>
 </template>
 
 <script>
@@ -50,11 +55,12 @@ export default {
           };
         }
       } catch (error) {
-        this.loading = false;
         this.$Toast({
           message: '获取文章失败',
           duration: 2000
         });
+      } finally {
+        this.loading = false;
       }
     },
     showItemDetail(item) {

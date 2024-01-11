@@ -1,5 +1,10 @@
 <template>
-  <div>文章列表及所有文章详情</div>
+  <div>
+    文章列表及所有文章详情
+    <van-loading v-if="loading" color="#095ddc" text-color="#095ddc" vertical>
+      加载中...
+    </van-loading>
+  </div>
 </template>
 
 <script>
@@ -40,8 +45,9 @@ export default {
         this.loading = false;
         this.dictionaryList = data;
       } catch (error) {
-        this.loading = false;
         console.error(error || '获取服务列表失败');
+      } finally {
+        this.loading = false;
       }
     },
     async getArticleList() {
